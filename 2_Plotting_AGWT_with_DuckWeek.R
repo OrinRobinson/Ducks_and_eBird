@@ -1,6 +1,17 @@
-eBird<- read_csv("eBird_Regions_Weeks.csv")
+library(ebirdst)
+library(rnaturalearth)
+library(ggplot2)
+library(viridisLite)
+library(dplyr)
+library(gridExtra)
+library(tidyverse)
 
-Dates <- read_csv("dates.csv") %>%
+
+
+
+eBird<- read_csv("Data/eBird_Regions_Weeks.csv")
+
+Dates <- read_csv("Data/dates.csv") %>%
   mutate(st_week = ST_week) %>%
   select (date, st_week)
 
@@ -9,7 +20,7 @@ Date_vec <-rbind(Dates[36:52,], Dates[1:35,]) %>%
   mutate(Duck_week = c(seq(1:52)))
 
 
-IL_Duck_1 <- read_csv("IL_Ducks_Data.csv", 
+IL_Duck_1 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
   select(c("YEAR","County", "AGWT", "st_week", "LOCATION", "REG", "DAY")) %>%
@@ -17,20 +28,20 @@ IL_Duck_1 <- read_csv("IL_Ducks_Data.csv",
 
 
 
-IL_Duck_2 <- read_csv("IL_Ducks_Data.csv", 
+IL_Duck_2 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
   select(c("YEAR","County", "AGWT", "st_week", "LOCATION", "REG")) %>%
   filter(REG == 2)
 
 
-IL_Duck_3 <- read_csv("IL_Ducks_Data.csv", 
+IL_Duck_3 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
   select(c("YEAR","County","AGWT", "st_week", "LOCATION", "REG")) %>%
   filter(REG == 3)
 
-IL_Duck_4 <- read_csv("IL_Ducks_Data.csv", 
+IL_Duck_4 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
   select(c("YEAR","County","AGWT", "st_week", "LOCATION", "REG")) %>%
