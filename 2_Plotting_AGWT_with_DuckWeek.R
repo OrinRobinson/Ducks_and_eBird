@@ -31,26 +31,30 @@ IL_Duck_1 <- read_csv("Data/IL_Ducks_Data.csv",
 IL_Duck_2 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
-  select(c("YEAR","County", "AGWT", "st_week", "LOCATION", "REG")) %>%
+  select(c("YEAR","County", "AGWT", "st_week", "LOCATION", "REG", "DAY")) %>%
   filter(REG == 2)
 
 
 IL_Duck_3 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
-  select(c("YEAR","County","AGWT", "st_week", "LOCATION", "REG")) %>%
+  select(c("YEAR","County","AGWT", "st_week", "LOCATION", "REG", "DAY")) %>%
   filter(REG == 3)
 
 IL_Duck_4 <- read_csv("Data/IL_Ducks_Data.csv", 
                       col_types = cols(DAY = col_date(format = "%m/%d/%Y"))) %>%
   mutate(st_week = date_to_st_week(DAY)) %>%
-  select(c("YEAR","County","AGWT", "st_week", "LOCATION", "REG")) %>%
+  select(c("YEAR","County","AGWT", "st_week", "LOCATION", "REG", "DAY")) %>%
   filter(REG == 4)
 
 
 ## Only use 2018 data
 sub_18_1 <- IL_Duck_1[which(IL_Duck_1$YEAR == 2018),]
 
+sub_18_1[sub_18_1$DAY == "2018-02-26", "st_week"] <- 9
+sub_18_1[sub_18_1$DAY == "2018-09-04", "st_week"] <- 36
+sub_18_1[sub_18_1$DAY == "2018-11-20", "st_week"] <- 47
+sub_18_1[sub_18_1$DAY == "2018-12-11", "st_week"] <- 50
 
 counts_R1 <- sub_18_1 %>%
   group_by(st_week, County) %>% 
@@ -59,7 +63,8 @@ counts_R1 <- sub_18_1 %>%
   summarise(AGWT = sum(AGWT)) %>%
   mutate(pct = AGWT/max(AGWT),Region = "1")
 
-counts_R1[counts_R1$st_week == 35, "st_week"] <- 36
+
+
 
 
 # Re-order weeks to start in Sept.
@@ -70,6 +75,10 @@ counts_R1_DW <- merge(counts_R1, Date_vec, by = "st_week")
 
 sub_18_2 <- IL_Duck_2[which(IL_Duck_2$YEAR == 2018),]
 
+sub_18_2[sub_18_2$DAY == "2018-02-26", "st_week"] <- 9
+sub_18_2[sub_18_2$DAY == "2018-09-04", "st_week"] <- 36
+sub_18_2[sub_18_2$DAY == "2018-11-20", "st_week"] <- 47
+sub_18_2[sub_18_2$DAY == "2018-12-11", "st_week"] <- 50
 
 counts_R2 <- sub_18_2 %>%
   group_by(st_week, County) %>% 
@@ -78,7 +87,6 @@ counts_R2 <- sub_18_2 %>%
   summarise(AGWT = sum(AGWT))%>%
   mutate(pct = AGWT/max(AGWT), Region = "2")
 
-counts_R2[counts_R2$st_week == 35, "st_week"] <- 36
 
 counts_R2_DW <- merge(counts_R2, Date_vec, by = "st_week")
 
@@ -86,6 +94,10 @@ counts_R2_DW <- merge(counts_R2, Date_vec, by = "st_week")
 
 sub_18_3 <- IL_Duck_3[which(IL_Duck_3$YEAR == 2018),]
 
+sub_18_3[sub_18_3$DAY == "2018-02-26", "st_week"] <- 9
+sub_18_3[sub_18_3$DAY == "2018-09-04", "st_week"] <- 36
+sub_18_3[sub_18_3$DAY == "2018-11-20", "st_week"] <- 47
+sub_18_3[sub_18_3$DAY == "2018-12-11", "st_week"] <- 50
 
 counts_R3 <- sub_18_3 %>%
   group_by(st_week, County) %>% 
@@ -95,12 +107,15 @@ counts_R3 <- sub_18_3 %>%
   mutate(pct = AGWT/max(AGWT),Region = "3")
 
 
-counts_R3[counts_R3$st_week == 35, "st_week"] <- 36
 
 counts_R3_DW <- merge(counts_R3, Date_vec, by = "st_week")
 
 sub_18_4 <- IL_Duck_4[which(IL_Duck_4$YEAR == 2018),]
 
+sub_18_4[sub_18_4$DAY == "2018-02-26", "st_week"] <- 9
+sub_18_4[sub_18_4$DAY == "2018-09-04", "st_week"] <- 36
+sub_18_4[sub_18_4$DAY == "2018-11-20", "st_week"] <- 47
+sub_18_4[sub_18_4$DAY == "2018-12-11", "st_week"] <- 50
 
 counts_R4 <- sub_18_4 %>%
   group_by(st_week, County) %>% 
@@ -109,7 +124,6 @@ counts_R4 <- sub_18_4 %>%
   summarise(AGWT = sum(AGWT))%>%
   mutate(pct = AGWT/max(AGWT), Region = "4")
 
-counts_R4[counts_R4$st_week == 35, "st_week"] <- 36
 
 counts_R4_DW <- merge(counts_R4, Date_vec, by = "st_week")
 
