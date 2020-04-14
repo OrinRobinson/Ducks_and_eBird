@@ -1,3 +1,13 @@
+library(ebirdst)
+library(rnaturalearth)
+library(ggplot2)
+library(viridisLite)
+library(dplyr)
+library(gridExtra)
+library(tidyverse)
+
+
+
 eBird<- read_csv("Data/eBird_Regions_Weeks.csv")
 
 Dates <- read_csv("Data/dates.csv") %>%
